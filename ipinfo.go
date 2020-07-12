@@ -3,7 +3,6 @@ package ipinfo
 import (
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"time"
 )
@@ -18,7 +17,7 @@ type IpJson struct {
 	Timezone string `json:"timezone"`
 }
 
-func GetIp() IpJson{
+func GetIp() IpJson {
 	defer func() {
 		recover()
 	}()
@@ -33,7 +32,6 @@ func GetIp() IpJson{
 	if err == nil {
 		defer resp.Body.Close()
 		if body, err := ioutil.ReadAll(resp.Body); err == nil {
-			log.Printf("%s",body)
 			ipJsonObj := IpJson{}
 			json.Unmarshal(body, &ipJsonObj)
 			return ipJsonObj
